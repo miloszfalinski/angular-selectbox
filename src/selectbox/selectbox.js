@@ -27,6 +27,7 @@ angular.module('selectbox', [])
 
         $scope.view = {};
         $scope.view.show = false;
+        $scope.view.isSelected = false;
         $scope.view.tabindex = SelectBox.counter;
         $scope.view.instanceId = 'inst-' + Date.now();
 
@@ -172,10 +173,12 @@ angular.module('selectbox', [])
                 }
 
                 $scope.index = $scope.view.selected;
+                $scope.view.isSelected = true;
 
             } else {
                 $scope.view.selected = $scope.list[index];
                 $scope.index = index;
+                $scope.view.isSelected = true;
             }
         };
 
@@ -230,8 +233,8 @@ angular.module('selectbox', [])
                             'id="{{ view.instanceId }}"'+
                             'class="mad-selectbox-toggle"'+
                             'ng-click="toggleList()"'+
-                            'ng-class="{active: view.show}">'+
-                            '{{ multi ? (title || \'Select\') : (view.selected.name || view.selected || \'Select\') }}'+
+                            'ng-class="{active: view.show, selected: view.selected}">'+
+                            '{{ multi ? (title || \'Select\') : (view.selected.name || view.selected || title || \'Select\') }}'+
                         '</a>'+
                         '<ul class="mad-selectbox-dropdown" ng-show="view.show">'+
                             '<li ng-repeat="item in list track by $index"'+
